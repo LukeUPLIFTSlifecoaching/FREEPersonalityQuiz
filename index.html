@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Personality Quiz - Lukes Life Coaching</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        header {
+            text-align: center;
+        }
+        .suits {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .suit {
+            font-size: 3em;
+            margin: 0 20px;
+        }
+        .heart, .diamond {
+            color: red;
+        }
+        .club, .spade {
+            color: black;
+        }
+        .description {
+            margin: 20px 0;
+            text-align: center;
+            font-style: italic;
+        }
+        .question {
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        #percentages p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        #dominant_type {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Discover Your Personality Type</h1>
+        <p>Your Key To Self Discovery</p>
+    </header>
+
+    <div class="suits">
+        <span class="suit heart">♥</span>
+        <span class="suit club">♣</span>
+        <span class="suit diamond">♦</span>
+        <span class="suit spade">♠</span>
+    </div>
+
+    <div class="description">
+        <p>This engaging quiz uses the four main personality types inspired by playing card suits—Heart, Club, Diamond, and Spade—to help you uncover your traits. Finding out your personality type is important because it empowers you to understand your natural strengths, improve areas of challenge, and make more aligned decisions in your personal and professional life. As a coaching tool, it serves as a foundation for tailored growth strategies to attract success and fulfillment.</p>
+    </div>
+
+    <form id="quizForm" action="https://formspree.io/f/xjkozeap" method="POST">
+        <h2>Answer the following 10 Yes/No questions:</h2>
+        
+        <div class="question">
+            <label>1. Do you often put others' needs before your own?</label><br>
+            <input type="radio" name="q1" value="yes"> Yes
+            <input type="radio" name="q1" value="no"> No
+        </div>
+        
+        <div class="question">
+            <label>2. Are you good at empathizing with people's feelings?</label><br>
+            <input type="radio" name="q2" value="yes"> Yes
+            <input type="radio" name="q2" value="no"> No
+        </div>
+        
+        <div class="question">
+            <label>3. Do you enjoy social gatherings and meeting new people?</label><br>
+            <input type="radio" name="q3" value="yes"> Yes
+            <input type="radio" name="q3" value="no"> No
+        </div>
+        
+        <div class="question">
+            <label>4. Do you prefer logical and systematic approaches to problems?</label><br>
+            <input type="radio" name="q4" value="yes"> Yes
+            <input type="radio" name="q4" value="no"> No
+        </div>
+        
+        <div class="question">
+            <label>5. Are you reliable and hardworking in your tasks?</label><br>
+            <input type="radio" name="q5" value="yes"> Yes
+            <input type="radio" name="q5" value="no"> No
+        </div>
+        
+        <div class="question">
+            <label>6. Do you value stability and routine in your life?</label><br>
+            <input type="radio" name="q6" value="yes"> Yes
+            <input type="radio" name="q6" value="no"> No
+        </div>
+        
+        <div class="question">
+            <label>7. Do you like to come up with new ideas and innovations?</label><br>
+            <input type="radio" name="q7" value="yes"> Yes
+            <input type="radio" name="q7" value="no"> No
+        </div>
+        
+        <div class="question">
+            <label>8. Are you adventurous and enjoy trying new things?</label><br>
+            <input type="radio" name="q8" value="yes"> Yes
+            <input type="radio" name="q8" value="no"> No
+        </div>
+        
+        <div class="question">
+            <label>9. Do you enjoy solving complex puzzles or problems?</label><br>
+            <input type="radio" name="q9" value="yes"> Yes
+            <input type="radio" name="q9" value="no"> No
+        </div>
+        
+        <div class="question">
+            <label>10. Are you independent and prefer working alone?</label><br>
+            <input type="radio" name="q10" value="yes"> Yes
+            <input type="radio" name="q10" value="no"> No
+        </div>
+
+        <h3>Enter your details to receive Your personalized insights:</h3>
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        
+        <input type="hidden" id="heart_pct" name="heart_pct">
+        <input type="hidden" id="club_pct" name="club_pct">
+        <input type="hidden" id="diamond_pct" name="diamond_pct">
+        <input type="hidden" id="spade_pct" name="spade_pct">
+        <input type="hidden" id="dominant" name="dominant">
+        
+        <button type="submit">Submit and Reveal My Results</button>
+    </form>
+
+    <div id="result">
+        <h2>Your Personality Quiz Results</h2>
+        <div id="percentages">
+            <!-- Percentages will be inserted here -->
+        </div>
+        <h3>Your Most Dominant Type: <span id="dominant_type"></span></h3>
+        <div id="description">
+            <!-- Description will be inserted here -->
+        </div>
+        <p>Thank you for completing the quiz! Your results have been sent to Luke Himself. Let's use this insight to Begin your  journey.</p>
+    </div>
+
+    <script>
+        const descriptions = {
+            heart: 'As a Heart type, you are warm-hearted and empathetic, prioritizing relationships and harmony. You lead with compassion and grace. This means you excel in nurturing connections and supporting others emotionally',
+            club: 'As a Club type, you are charismatic and energetic, excelling at building connections and inspiring teamwork. You are practical and achievement-oriented. This indicates a strength in collaborative environments and motivating groups.',
+            diamond: 'As a Diamond type, you are creative and opportunistic, always seeking new experiences and ideas. You are innovative and resourceful. This suggests an adventurous spirit that thrives on novelty and invention.',
+            spade: 'As a Spade type, you are analytical and decisive, thriving on challenges and strategic thinking. You reflect sharp intellect and leadership. This points to a no-nonsense, efficient approach to problem-solving.'
+        };
+
+        const symbols = {
+            heart: '♥',
+            club: '♣',
+            diamond: '♦',
+            spade: '♠'
+        };
+
+        const colors = {
+            heart: 'red',
+            club: 'black',
+            diamond: 'red',
+            spade: 'black'
+        };
+
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Define question groups
+            const heartQs = ['q1', 'q2', 'q3'];
+            const clubQs = ['q4', 'q5', 'q6'];
+            const diamondQs = ['q7', 'q8'];
+            const spadeQs = ['q9', 'q10'];
+
+            // Count yes answers
+            let yesHeart = 0;
+            heartQs.forEach(q => {
+                if (document.querySelector(`input[name="${q}"]:checked`)?.value === 'yes') yesHeart++;
+            });
+
+            let yesClub = 0;
+            clubQs.forEach(q => {
+                if (document.querySelector(`input[name="${q}"]:checked`)?.value === 'yes') yesClub++;
+            });
+
+            let yesDiamond = 0;
+            diamondQs.forEach(q => {
+                if (document.querySelector(`input[name="${q}"]:checked`)?.value === 'yes') yesDiamond++;
+            });
+
+            let yesSpade = 0;
+            spadeQs.forEach(q => {
+                if (document.querySelector(`input[name="${q}"]:checked`)?.value === 'yes') yesSpade++;
+            });
+
+            // Calculate percentages
+            const heartPct = Math.round((yesHeart / heartQs.length) * 100);
+            const clubPct = Math.round((yesClub / clubQs.length) * 100);
+            const diamondPct = Math.round((yesDiamond / diamondQs.length) * 100);
+            const spadePct = Math.round((yesSpade / spadeQs.length) * 100);
+
+            const pcts = { heart: heartPct, club: clubPct, diamond: diamondPct, spade: spadePct };
+
+            // Determine dominant
+            let dominant = 'heart';
+            let maxPct = heartPct;
+            for (let type in pcts) {
+                if (pcts[type] > maxPct) {
+                    maxPct = pcts[type];
+                    dominant = type;
+                }
+            }
+
+            // Set hidden fields for form submission
+            document.getElementById('heart_pct').value = heartPct;
+            document.getElementById('club_pct').value = clubPct;
+            document.getElementById('diamond_pct').value = diamondPct;
+            document.getElementById('spade_pct').value = spadePct;
+            document.getElementById('dominant').value = dominant;
+
+            // Submit via fetch
+            const formData = new FormData(this);
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    // Hide form and show results
+                    document.getElementById('quizForm').style.display = 'none';
+                    document.getElementById('result').style.display = 'block';
+
+                    // Populate percentages
+                    let pctHtml = `
+                        <p>Heart (♥): ${heartPct}%</p>
+                        <p>Club (♣): ${clubPct}%</p>
+                        <p>Diamond (♦): ${diamondPct}%</p>
+                        <p>Spade (♠): ${spadePct}%</p>
+                    `;
+                    document.getElementById('percentages').innerHTML = pctHtml;
+
+                    // Dominant type
+                    const sym = symbols[dominant];
+                    const typeName = dominant.charAt(0).toUpperCase() + dominant.slice(1);
+                    document.getElementById('dominant_type').innerHTML = `${sym} ${typeName}`;
+                    document.getElementById('dominant_type').style.color = colors[dominant];
+
+                    // Description
+                    document.getElementById('description').innerHTML = `<p>${descriptions[dominant]}</p>`;
+                } else {
+                    alert('There was an error submitting your details. Please try again.');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('There was an error submitting your details. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html>
